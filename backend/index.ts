@@ -1,9 +1,9 @@
 import Colors = require('colors.ts');
 import { config } from 'dotenv';
 import express, { Application, json as JSONBody, urlencoded } from 'express';
-// import routers from './routes/users'; // can use this syntax as well.
+// import routers = require('./routes/user.routes') // can use this syntax as well, but first see the export syntax.
 import connectDB from './config/db';
-import routers = require('./routes/users');
+import routers from './routes/user.routes';
 
 config();
 Colors.colors;
