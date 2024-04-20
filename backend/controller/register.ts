@@ -1,3 +1,4 @@
+import Colors from 'colors.ts';
 import { Request, Response } from 'express';
 
 interface IRegister {
@@ -6,17 +7,14 @@ interface IRegister {
   age: number;
 }
 
-const register = function (req: Request, res: Response) {
+const register = async function (req: Request, res: Response) {
   try {
-    const name: string = req.body;
-    const email: string = req.body;
-    const age: number = req.body;
-
+    const { name, email, age } = await req.body;
     const user: IRegister = { name, email, age };
-
+    console.log(user);
     res.status(201).json(user);
   } catch (error) {
-    console.log(error);
+    Colors.theme({ error: 'red' });
     process.exit(1);
   }
 };

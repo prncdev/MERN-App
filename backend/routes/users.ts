@@ -8,4 +8,5 @@ routers.get('/:id', getUser);
 
 routers.post('/register', register);
 
-export default routers;
+// export default routers;
+export = routers;
