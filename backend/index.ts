@@ -20,6 +20,7 @@ app.use(urlencoded({ extended: false }));
 
 app.use('/', routers);
 
+
 app.listen(port, () =>
-  console.log('App running on =>'.underline.dim.bold, `http://localhost:${port}/`.green.underline)
+  console.log('Ctrl + left-click. visit =>'.underline.dim.bold, `http://localhost:${port}/`.green.underline)
 );
