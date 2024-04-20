@@ -1,4 +1,4 @@
-import { Router, IRouter, Request, Response } from "express";
+import { IRouter, Router } from "express";
 import { getUser, getUsers, register } from "../controller";
 
 const routers: IRouter = Router();
