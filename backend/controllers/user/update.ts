@@ -1,7 +1,7 @@
-import { NextFunction, Request, Response } from 'express';
-import Users from '../models/Users';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
+import Users from '../../models/Users';
 
-const updateUser = async function ( req: Request, res: Response, next: NextFunction) {
+const updateUser: RequestHandler = async function ( req: Request, res: Response, next: NextFunction) {
   try {
     const user = await Users.findById(req.params.id);
 

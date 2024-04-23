@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express';
-import Users from '../models/Users';
+import { Request, Response, NextFunction, RequestHandler } from 'express';
+import Users from '../../models/Users';
 
 interface IRegister {
   name: string;
@@ -7,7 +7,7 @@ interface IRegister {
   age: number;
 }
 
-const register = async function (req: Request, res: Response, next: NextFunction) {
+const register: RequestHandler = async function (req: Request, res: Response, next: NextFunction) {
   try {
     const { name, email, age } = req.body;
 
