@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import Users from '../models/Users';
 
 interface IRegister {
   name: string;
@@ -8,15 +9,15 @@ interface IRegister {
 
 const register = async function (req: Request, res: Response, next: NextFunction) {
   try {
-    const { name, email, age } = await req.body;
+    const { name, email, age } = req.body;
 
     if(!name || !email || !age) {
       res.status(400);
-      throw new Error('Please provide the neccessary fields');
+      throw new Error('Please provide all the neccessary fields');
     }
-    const user: IRegister = { name, email, age };
+
+    const user: IRegister = await Users.create({ name, email, age });
     res.status(201).json(user);
-    
   } catch (error) {
     next(error); // Pass the error to the next middleware
   }

@@ -1,11 +1,18 @@
-import mongoose from "mongoose";
 
-const documentSchema = new mongoose.Schema({
-  user:     { type: mongoose.Schema.Types.ObjectId, required: true },
+import { model, Schema } from "mongoose";
+
+type DocType = {
+  user: Schema.Types.ObjectId;
+  content: string;
+}
+
+const documentSchema = new Schema<DocType>({
+  user:     { type: Schema.Types.ObjectId, required: true, ref: 'Users'},
   content:  { type: String, required: true },
-  ref:      'Users'
+}, {
+  timestamps: true,
 });
 
-const Documents = mongoose.model('Documents', documentSchema);
+const Documents = model<DocType>('Documents', documentSchema);
 
 export default Documents;
