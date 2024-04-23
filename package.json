@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "file path",
-    "start": "node backend/dist",
+    "start": "ts-node backend/index.ts",
     "dev": "nodemon backend/index.ts",
-    "build": "tsc -p ."
+    "test": "file path",
+    "build": "tsc -p . && node backend/_dist"
   },
   "author": "Prince",
   "license": "MIT",
