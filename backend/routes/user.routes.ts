@@ -4,14 +4,9 @@ import { getUser, getUsers, register, updateUser, deleteUser } from "../controll
 const routers: IRouter = Router();
 
 routers.get('/', getUsers);
-
-routers.get('/:id', getUser);
-
 routers.post('/register', register);
 
-routers.put('/:id', updateUser);
-
-routers.delete('/:id', deleteUser);
+routers.route('/:id').get(getUser).put(updateUser).delete(deleteUser);
 
 
 // export default routers;
