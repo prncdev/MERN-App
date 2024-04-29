@@ -1,15 +1,19 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
-import Sessions from "../../models/Sessions";
+import Users from "../../models/Users";
 
 const logout: RequestHandler =  async function(req: Request, res: Response, next: NextFunction) {
   let token: string | null = null;
 
   try {
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    if (req.headers.authorization?.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
-      const user = await Sessions.findByIdAndDelete(token);
+      const user = await Users.findOne({ session: token });
       if(user) {
-        res.status(200).json({ token: token});
+        // If we set a field as `undefined` if will automatically deletes that field from the document.
+        user.session = undefined;
+        user.expiresOn = undefined;
+        await user.save();
+        res.status(200).json({ token});
       } else {
         res.status(400);
         throw new Error('Not logged in');

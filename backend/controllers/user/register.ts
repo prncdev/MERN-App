@@ -35,11 +35,12 @@ const register = async function (req: Request, res: Response, next: NextFunction
 
     // Check if user created successfully.
     if(user) {
-      res.status(201).json({
-        _id: user?.id,
-        name: user.name,
-        email: user.email,
-      });
+      // res.status(201).json({
+      //   _id: user?.id,
+      //   name: user.name,
+      //   email: user.email,
+      // });
+      res.status(201).json(user);
     } else {
       res.status(500).json({ message: 'Something went wrong.' });
     }

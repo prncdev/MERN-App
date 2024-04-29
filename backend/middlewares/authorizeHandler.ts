@@ -1,26 +1,33 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import Users from '../models/Users';
-import Sessions from '../models/Sessions';
 
 export const authorizeHandler: RequestHandler = async function (req: Request | any, res: Response, next: NextFunction) {
   let token: string | null = null;
   try {
-    if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+    if (req.headers.authorization?.startsWith('Bearer')) {
       token = req.headers.authorization.split(' ')[1];
-      const userID = await Sessions.findById(token);
+      const userSession = await Users.findOne({ session: token }).select(['-password']);
 
-      if (!userID) {
+      if (!userSession) {
         res.status(401);
         throw new Error('unauthorized');
       }
 
-      req.user = await Users.findById(userID?.user).select('-password');
-      
+      if (userSession.expiresOn && userSession.expiresOn < new Date()) {
+        // If we set a field as `undefined` if will automatically deletes that field from the document.
+        userSession.session = undefined;
+        userSession.expiresOn = undefined;
+        await userSession.save();
+        res.status(400);
+        throw new Error('Invalid session or session has expired');
+      }
+
+      req.user = userSession;
       // After setting the user into the request object move the middleware/control to next functions
       next();
     } else if (!token) {
       res.status(401);
-      throw new Error('unauthorized, no token');
+      throw new Error('unauthorized, no session ID');
     }
   } catch (error) {
     next(error);

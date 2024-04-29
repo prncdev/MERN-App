@@ -10,6 +10,7 @@ const login: RequestHandler =  async function(req: Request, res: Response, next:
 
     // Check if email is valid and password is correct.
     if(user && (await bcrypt.compare(password, user.password))) {
+      // This leads to us in a problematic situation, what if user wants to login more than one device?
       const isSessionExits = await Sessions.findOne({ user: user.id });
 
       // Remove this check after UI created.
