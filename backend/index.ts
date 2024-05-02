@@ -17,8 +17,8 @@ connectDB(dbURL);
 app.use(JSONBody());
 app.use(urlencoded({ extended: false }));
 
-app.use(userRoutes);
 app.use(docRoutes);
+app.use(userRoutes);
 
 // The custom error handler middleware functions should be below to the router.
 app.use(errorHandler);

@@ -1,9 +1,11 @@
 import { IRouter, Router } from "express";
-import { getDoc } from "../controllers";
-import { authorizeHandler } from "backend/middlewares/authorizeHandler";
+import { deleteDoc, getDoc, setDoc, updateDoc } from "../controllers";
+import { authorizeHandler } from "../middlewares/authorizeHandler";
 
-const router: IRouter = Router();
+const routers: IRouter = Router();
 
-router.get('/document', authorizeHandler, getDoc);
+routers.route('/document').get(authorizeHandler, getDoc).post(authorizeHandler, setDoc);
+routers.route('/document/:id').delete(authorizeHandler, deleteDoc).put(authorizeHandler, updateDoc);
 
-export default router;
+// $2a$10$oCnGDNVYJYXQBxku3gxuOO--e8dc8076-b9ad-40fa-aa07-87d8c5c0eb5c
+export default routers;
