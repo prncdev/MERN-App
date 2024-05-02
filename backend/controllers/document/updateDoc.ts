@@ -7,11 +7,18 @@ const updateDoc: RequestHandler = async function(req: Request | any, res: Respon
     const content = await Documents.findById(req.params.id);
     const user = await Users.findById(req.user.id);
     
-    // Check if the current loggedin user is owner/author of the doucment.
+    // Check if the user is currently loggedin.
     if(!user) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Check if the current loggedin user is owner/author of the doucment, before update.
+    if(content?.user.toString() !== req.user.id) {
       res.status(401);
       throw new Error('unauthorized');
     }
+    
     // Check whether the document is exists with provided Doc ID.
     if(!content) {
       res.status(404);

@@ -7,8 +7,14 @@ const deleteDoc: RequestHandler = async function(req: Request | any, res: Respon
     const content = await Documents.findById(req.params.id);
     const user = await Users.findById(req.user.id);
     
-    // Check if the current loggedin user is owner/author of the document.
+    // Check if the user is currently loggedin.
     if(!user) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Check if the current loggedin user is owner/author of the doucment, before update.
+    if(content?.user.toString() !== req.user.id) {
       res.status(401);
       throw new Error('unauthorized');
     }
@@ -27,8 +33,8 @@ const deleteDoc: RequestHandler = async function(req: Request | any, res: Respon
     });
 
   } catch(error) {
-    next(error)
+    next(error);
   }
 }
 
-export default deleteDoc
+export default deleteDoc;

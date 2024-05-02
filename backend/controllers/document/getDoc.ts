@@ -7,6 +7,7 @@ const getDoc: RequestHandler = async function(req: Request | any, res: Response,
     const contents = await Documents.find({ user: req.user.id });
     
     res.status(200).json({ contents: contents });
+    
   } catch(error) {
     next(error);
   };
