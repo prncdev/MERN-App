@@ -1,9 +1,17 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import Documents from "../../models/Documents";
+import Users from "../../models/Users";
 
-const deleteDoc: RequestHandler = async function(req: Request, res: Response, next: NextFunction) {
+const deleteDoc: RequestHandler = async function(req: Request | any, res: Response, next: NextFunction) {
   try {
     const content = await Documents.findById(req.params.id);
+    const user = await Users.findById(req.user.id);
+    
+    // Check if the current loggedin user is owner/author of the document.
+    if(!user) {
+      res.status(401);
+      throw new Error('unauthorized');
+    }
     
     // Check whether the document is exists with provided Doc ID.
     if(!content) {
