@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
-import Users from '../../models/Users';
 import bcrypt from 'bcryptjs';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
+import Users from '../../models/Users';
 
 interface IRegister {
   id?: any;
@@ -9,7 +9,7 @@ interface IRegister {
   password: string;
 }
 
-const register = async function (req: Request, res: Response, next: NextFunction) {
+const register: RequestHandler = async function (req: Request, res: Response, next: NextFunction) {
   try {
     const { name, email, password } = req.body;
 

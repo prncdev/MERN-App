@@ -7,8 +7,8 @@ import connectDB from './config/db';
 import { userRoutes, docRoutes } from './routes';
 import { errorHandler } from './middlewares/errorhandle';
 
-const port = process.env.PORT || 5000;
-const dbURL = process.env.DATABASE_URI || "mongodb://localhost:27017/FullStack";
+const port = process.env.PORT ?? 5000;
+const dbURL = process.env.DATABASE_URI ?? "mongodb://localhost:27017/FullStack";
 
 const app: Application = express();
 
