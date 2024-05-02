@@ -1,15 +1,20 @@
-import { Schema, model } from "mongoose";
+import { Schema, Document, model } from "mongoose";
 
-interface IUsers{
+// Define the interface representing the structure of your user document.
+interface IUsers extends Document{
   name: string;
   email: string;
-  age: number;
+  password: string;
+  session?: string;
+  expiresOn?: Date;
 }
 
 const userSchema = new Schema<IUsers>({
-  name:   { type: String, required: true },
-  age:    { type: Number, required: true },
-  email:  { type: String, required: true, unique: true },
+  name:        { type: String, required: true },
+  email:       { type: String, required: true, unique: true },
+  password:    { type: String, required: true },
+  session:     { type: String },
+  expiresOn:   { type: Date }
 }, {
   timestamps: true,
 });
