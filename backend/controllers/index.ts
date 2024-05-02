@@ -11,3 +11,6 @@ export { default as deleteUser } from './user/delete';
 
 // Document based controller functions.
 export { default as getDoc } from './document/getDoc';
+export { default as setDoc } from './document/createDoc';
+export { default as updateDoc } from './document/updateDoc'
+export { default as deleteDoc } from './document/deleteDoc';

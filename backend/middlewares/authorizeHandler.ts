@@ -14,6 +14,7 @@ export const authorizeHandler: RequestHandler = async function (req: Request | a
       }
 
       if (userSession.expiresOn && userSession.expiresOn < new Date()) {
+        console.log('session has expired');
         // If we set a field as `undefined` if will automatically deletes that field from the document.
         userSession.session = undefined;
         userSession.expiresOn = undefined;

@@ -1,9 +1,12 @@
 import { NextFunction, Request, RequestHandler, Response } from "express";
+import Documents from "../../models/Documents";
 
-const getDoc: RequestHandler = function(req: Request, res: Response, next: NextFunction) {
+const getDoc: RequestHandler = async function(req: Request | any, res: Response, next: NextFunction) {
   try {
-    const { user } = req.body;
-    res.status(200).json({ message: 'Got all documents' });
+    // Get all the documents that are associated with a specific user.
+    const contents = await Documents.find({ user: req.user.id });
+    
+    res.status(200).json({ contents: contents });
   } catch(error) {
     next(error);
   };
