@@ -1,5 +1,6 @@
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import Documents from '../../models/Documents';
+
 const setDoc: RequestHandler = async function(req: Request | any, res: Response, next: NextFunction) {
   try {
     const user = req.user.id;

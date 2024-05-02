@@ -1,9 +1,23 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { NextFunction, Request, RequestHandler, Response } from "express";
 import Documents from "../../models/Documents";
+import Users from "../../models/Users";
 
-const deleteDoc: RequestHandler = async function(req: Request, res: Response, next: NextFunction) {
+const deleteDoc: RequestHandler = async function(req: Request | any, res: Response, next: NextFunction) {
   try {
     const content = await Documents.findById(req.params.id);
+    const user = await Users.findById(req.user.id);
+    
+    // Check if the user is currently loggedin.
+    if(!user) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Check if the current loggedin user is owner/author of the doucment, before update.
+    if(content?.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error('unauthorized');
+    }
     
     // Check whether the document is exists with provided Doc ID.
     if(!content) {
@@ -19,8 +33,8 @@ const deleteDoc: RequestHandler = async function(req: Request, res: Response, ne
     });
 
   } catch(error) {
-    next(error)
+    next(error);
   }
 }
 
-export default deleteDoc
+export default deleteDoc;
