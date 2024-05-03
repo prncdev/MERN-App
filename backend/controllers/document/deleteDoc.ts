@@ -13,16 +13,16 @@ const deleteDoc: RequestHandler = async function(req: Request | any, res: Respon
       throw new Error('User not found');
     }
 
-    // Check if the current loggedin user is owner/author of the doucment, before update.
-    if(content?.user.toString() !== req.user.id) {
-      res.status(401);
-      throw new Error('unauthorized');
-    }
-    
     // Check whether the document is exists with provided Doc ID.
     if(!content) {
       res.status(404);
       throw new Error('Can\'t delete no content found');
+    }
+
+    // Check if the current loggedin user is owner/author of the doucment, before update.
+    if(content.user.toString() !== req.user.id) {
+      res.status(401);
+      throw new Error('unauthorized');
     }
 
     const deletedDoc = await Documents.findByIdAndDelete(req.params.id);

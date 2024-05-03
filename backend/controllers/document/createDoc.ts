@@ -5,7 +5,7 @@ const setDoc: RequestHandler = async function(req: Request | any, res: Response,
   try {
     const user = req.user.id;
     const { content } = req.body;
-    const contentCreated = await Documents.create({ user, content});
+    const contentCreated = await Documents.create({ user, content });
     
     res.status(201).json(contentCreated);
   } catch(error) {
