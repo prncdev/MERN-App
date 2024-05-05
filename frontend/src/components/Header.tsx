@@ -19,7 +19,7 @@ type ListProps = {
   className?: string;
 }
 
-const List: React.FC<ListProps> = function(props) {
+export const List: React.FC<ListProps> = function(props) {
   const { children } = props;
 
   return (
@@ -40,7 +40,7 @@ type ItemProps = {
   className?: string;
 }
 
-const Item: React.FC<ItemProps> = function(props) {
+export const Item: React.FC<ItemProps> = function(props) {
   const { children } = props;
   
   return (
