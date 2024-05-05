@@ -9,13 +9,19 @@ import {
   MenuItem,
   Select,
 } from '@mui/material';
+
 import { lightBlue, pink } from '@mui/material/colors';
 import Radio from '@mui/material/Radio';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FaUser } from 'react-icons/fa';
 import { MdOutlineVisibility, MdOutlineVisibilityOff } from 'react-icons/md';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { Input } from '../components';
 import { ageList } from '../constants/ageList';
+import { register, reset } from '../services/auth/authSlice';
+
 // interface IError {
 //   [key: string]: string;
 // }
@@ -33,15 +39,51 @@ const Signin: FC = function () {
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
+  const navigator = useNavigate();
+  const dispatch = useDispatch();
+  const { user, isError, isLoading, isSuccess, message } = useSelector(
+    (state: any) => state.auth
+  );
+
+  useEffect(() => {
+    if(isError) {
+      toast.error(message);
+    }
+
+    if(isSuccess && user) {
+      toast.success('Welcome, you\'ve registered now');
+      navigator('/');
+    }
+
+    // Whether the user is created or failed to create the user, reset the state.
+    dispatch(reset());
+
+  }, [user, isError, isSuccess, message, navigator, dispatch])
+
   const handlerFromData = function (e: any) {
     const { name, value }: any = e.target;
     setFormData({ ...formData, [String(name).trim()]: value });
   };
 
-  const handleFormSubmit = function (event: any) {
+  const handleFormSubmit = async function (event: any) {
     event.preventDefault();
     const fullName = formData.name + ' ' + formData.surname;
-    console.log(fullName);
+    const { email, password, conpassword, age, gender } = formData;
+
+    // Check password matching.
+    if (password !== conpassword) {
+      toast.error('Passwords do not matched');
+    } else {
+      const userData = {
+        name: fullName,
+        age,
+        gender,
+        email,
+        password,
+      };
+
+      dispatch(register(userData));
+    }
   };
 
   const controlProps = (item: string) => ({
@@ -51,6 +93,10 @@ const Signin: FC = function () {
     name: 'gender',
     inputProps: { 'aria-label': item },
   });
+
+  if(isLoading) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <Box
@@ -175,9 +221,7 @@ const Signin: FC = function () {
 
           <div>
             <FormControl>
-              <FormLabel required>
-                Gender
-              </FormLabel>
+              <FormLabel required>Gender</FormLabel>
               <FormControlLabel
                 control={
                   <Radio
@@ -214,6 +258,16 @@ const Signin: FC = function () {
           <Button
             variant='contained'
             className='w-full !py-3'
+            sx={{
+              bgcolor: `${
+                formData.gender === 'female' ? pink[600] : lightBlue[700]
+              }`,
+              '&:hover': {
+                bgcolor: `${
+                  formData.gender === 'female' ? pink[800] : lightBlue[900]
+                }`,
+              },
+            }}
             type='submit'
             disabled={
               !formData.name ||

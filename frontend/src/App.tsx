@@ -1,6 +1,9 @@
 import React from 'react';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 import { Header, Section } from './components';
 import { Home, Login, Me, Signin } from './pages';
 
@@ -17,6 +20,7 @@ const App: React.FC = function() {
             <Route path='/signin' element={<Signin /> } />
           </Routes>
         </Section>
+        <ToastContainer />
       </main>
     </Router>
   );
