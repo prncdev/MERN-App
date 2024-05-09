@@ -22,10 +22,6 @@ import { Input } from '../components';
 import { ageList } from '../constants/ageList';
 import { register, reset } from '../services/auth/authSlice';
 
-// interface IError {
-//   [key: string]: string;
-// }
-
 const Signin: FC = function () {
   const [formData, setFormData] = useState({
     name: '',
@@ -100,6 +96,7 @@ const Signin: FC = function () {
 
   return (
     <Box
+      onSubmit={handleFormSubmit}
       component='form'
       autoComplete='off'
       sx={{
@@ -108,7 +105,6 @@ const Signin: FC = function () {
         paddingBlock: 2,
         borderRadius: 2,
       }}
-      onSubmit={handleFormSubmit}
     >
       <h1 className='w-full flex gap-8 my-1 justify-center items-center font-semibold text-4xl'>
         <FaUser size={36} />
