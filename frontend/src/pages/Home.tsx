@@ -2,8 +2,10 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { me } from '../services/auth/authSlice';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const Home: React.FC = function () {
+  const navigator = useNavigate();
   const [userData, setUserData] = React.useState<any>();
 
   const dispatch = useDispatch();
@@ -14,6 +16,11 @@ const Home: React.FC = function () {
   React.useEffect(() => {
     const sessionID = localStorage.getItem('userToken');
     const userToken: string | null = sessionID ? JSON.parse(sessionID) : null;
+
+    if(!user) {
+      navigator('/login');
+    }
+
     dispatch(me(userToken));
     
     if (isError) {
@@ -32,7 +39,7 @@ const Home: React.FC = function () {
       ) : (
         <div>
           <ul>
-            {Object.entries(user).map(([key, value]: any, index) => {
+            {user && Object.entries(user).map(([key, value]: any, index) => {
               if(key !== 'id') {
                 return (
                   <li className='py-3 px-2' key={key + index}>
