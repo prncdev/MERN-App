@@ -6,6 +6,7 @@ import express, { Application, json as JSONBody, urlencoded } from 'express';
 import connectDB from './config/db';
 import { userRoutes, docRoutes } from './routes';
 import { errorHandler } from './middlewares/errorhandle';
+import cors = require('cors');
 
 const port = process.env.PORT ?? 5000;
 const dbURL = process.env.DATABASE_URI ?? "mongodb://localhost:27017/FullStack";
@@ -14,6 +15,7 @@ const app: Application = express();
 
 connectDB(dbURL);
 
+app.use(cors());
 app.use(JSONBody());
 app.use(urlencoded({ extended: false }));
 

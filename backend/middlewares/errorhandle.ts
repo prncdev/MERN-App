@@ -1,6 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { ErrorRequestHandler } from 'express';
 
-export const errorHandler = function (error: Error, req: Request, res: Response, next: NextFunction) {
+export const errorHandler: ErrorRequestHandler = function (error, req, res, next) {
   // At the time of error if we got some sort of HTTP status code then use it otherwise, the default would be 500.
   const statusCode = res.statusCode || 500;
 
