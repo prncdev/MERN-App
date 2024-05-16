@@ -2,13 +2,13 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { me } from '../services/auth/authSlice';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Home: React.FC = function () {
   const navigator = useNavigate();
-  const [userData, setUserData] = React.useState<any>();
-
   const dispatch = useDispatch();
+  
+  const [userData, setUserData] = React.useState<any>();
   const { user, isError, isLoading, isSuccess, message } = useSelector(
     (state: any) => state.auth
   );

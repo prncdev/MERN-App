@@ -10,8 +10,6 @@ import {
 const sessionID = localStorage.getItem('userToken');
 const userToken: string | null = sessionID ? JSON.parse(sessionID) : null;
 
-console.log(sessionID);
-
 const handleError = function (error: any) {
   const err =
     (error?.response && error?.response.data && error?.response.data.message) ||
