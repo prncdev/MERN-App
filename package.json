@@ -5,10 +5,10 @@
   "scripts": {
     "start": "ts-node backend/index.ts",
     "server": "nodemon backend/index.ts",
-    "client": "npm start --prefix frontend",
+    "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn start\" \"yarn client\"",
     "test": "file path",
-    "build": "tsc -p . && node backend/_dist"
+    "build": "yarn --cwd frontend install && yarn --cwd frontend build && tsc -p . && node backend/_dist"
   },
   "workspaces": [
     "frontend"
