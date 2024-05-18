@@ -12,8 +12,9 @@ const login: RequestHandler =  async function(req: Request, res: Response, next:
       
       // Don't create a new Session ID if a user has already one, just return that session ID.
       if(user.session) {
-        res.status(200).json({token: user.session });
+        res.status(200).json({ token: user.session, name: user.name, email: user.email });
       } else {
+        
         // Generate new Session ID.
         const UUID = crypto.randomUUID();
         const longSessionID = await bcrypt.genSalt(10) +'--'+ UUID;
@@ -22,7 +23,7 @@ const login: RequestHandler =  async function(req: Request, res: Response, next:
 
         // Set the session for the user.
         const { session }: any = await Users.findByIdAndUpdate(user.id, { session: longSessionID, expiresOn }, {new: true});
-        res.status(201).json({ token: session });
+        res.status(201).json({ name: user.name, email: user.email, token: session });
     }
     } else {
       res.status(400);

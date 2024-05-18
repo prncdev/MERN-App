@@ -1,27 +1,22 @@
-import { NextFunction, Request, RequestHandler, Response } from "express";
-import Documents from "../../models/Documents";
-import Users from "../../models/Users";
+import { RequestHandler } from 'express';
+import Documents from '../../models/Documents';
 
-const deleteDoc: RequestHandler = async function(req: Request | any, res: Response, next: NextFunction) {
+const deleteDoc: RequestHandler = async function (req: any, res, next) {
   try {
-    const content = await Documents.findById(req.params.id);
-    const user = await Users.findById(req.user.id);
-    
-    // Check if the user is currently loggedin.
-    if(!user) {
-      res.status(404);
-      throw new Error('User not found');
-    }
+    const content = await Documents.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user.id,
+    });
 
     // Check whether the document is exists with provided Doc ID.
-    if(!content) {
+    if (!content) {
       res.status(404);
-      throw new Error('Can\'t delete no content found');
+      throw new Error("Can't delete no content found");
     }
 
     // Check if the current loggedin user is owner/author of the doucment, before update.
-    if(content.user.toString() !== req.user.id) {
-      res.status(401);
+    if (content.user.toString() !== req.user.id) {
+      res.status(403);
       throw new Error('unauthorized');
     }
 
@@ -29,12 +24,11 @@ const deleteDoc: RequestHandler = async function(req: Request | any, res: Respon
 
     res.status(200).json({
       id: deletedDoc?.id,
-      message: 'Deleted successfully'
+      message: 'Document deleted successfully',
     });
-
-  } catch(error) {
+  } catch (error) {
     next(error);
   }
-}
+};
 
 export default deleteDoc;

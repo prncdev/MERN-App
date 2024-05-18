@@ -4,3 +4,7 @@ node_modules
 /frontend/yarn.lock
 .yarn
 yarn.lock
+_dist
+.env
+# Local Netlify folder
+.netlify
