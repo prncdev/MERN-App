@@ -4,3 +4,4 @@ node_modules
 /frontend/yarn.lock
 .yarn
 yarn.lock
+_dist

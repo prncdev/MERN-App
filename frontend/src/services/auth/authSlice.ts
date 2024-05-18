@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { SignIn, LogIn } from '../../constants/requestOptions';
 import authService from './authServices';
 import {
@@ -105,10 +105,10 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.user = action.payload;
       })
-      .addCase(register.rejected, function (state, action) {
+      .addCase(register.rejected, function (state, action: PayloadAction<string>) {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload as string;
+        state.message = action.payload;
         state.user = null;
       })
       .addCase(login.pending, function (state) {
@@ -119,10 +119,10 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.user = action.payload;
       })
-      .addCase(login.rejected, function (state, action) {
+      .addCase(login.rejected, function (state, action: PayloadAction<string>) {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload as string;
+        state.message = action.payload;
         state.user = null;
       })
       .addCase(me.pending, function (state) {
@@ -133,25 +133,25 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.user = action.payload;
       })
-      .addCase(me.rejected, function (state, action) {
+      .addCase(me.rejected, function (state, action: PayloadAction<string>) {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload as string;
+        state.message = action.payload;
         state.user = null;
       })
       .addCase(logout.pending, function (state) {
         state.isLoading = true;
       })
-      .addCase(logout.fulfilled, function (state, action) {
+      .addCase(logout.fulfilled, function (state) {
         state.isLoading = false;
         state.isSuccess = true;
         // Set the user state back to null just like it was initially was.
         state.user = null;
       })
-      .addCase(logout.rejected, function (state, action) {
+      .addCase(logout.rejected, function (state, action: PayloadAction<string>) {
         state.isLoading = false;
         state.isError = true;
-        state.message = action.payload as string;
+        state.message = action.payload;
       });
   },
 });

@@ -10,7 +10,6 @@
     "test": "file path",
     "build": "tsc -p . && node backend/_dist"
   },
-  "private": false,
   "workspaces": [
     "frontend"
   ],

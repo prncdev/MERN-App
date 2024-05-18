@@ -54,7 +54,7 @@ const Header: React.FC = function () {
   const navigator = useNavigate();
   const dispatch = useDispatch();
 
-  const { user, isError, isLoading, isSuccess, message } = useSelector((state: any) => state.auth);
+  const { user, isError, isSuccess, message } = useSelector((state: any) => state.auth);
 
   const handleLogout = async function() {
     const userToken: string | null = localStorage.getItem('userToken');
