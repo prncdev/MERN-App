@@ -4,7 +4,7 @@ import { authorizeHandler } from "../middlewares/authorizeHandler";
 
 const routers: IRouter = Router();
 
-routers.get('/', getUsers);
+// routers.get('/', getUsers);
 routers.get('/me', authorizeHandler, getMe);
 routers.post('/register', register);
 routers.post('/login', loginV2);
