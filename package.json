@@ -14,6 +14,7 @@
     "frontend"
   ],
   "author": "Prince",
+  "private": true,
   "license": "MIT",
   "dependencies": {
     "@types/bcryptjs": "^2.4.6",
