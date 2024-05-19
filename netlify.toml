@@ -3,7 +3,7 @@
   ## command = "yarn build"
   command = "yarn install && yarn --cwd frontend install && yarn --cwd frontend build && tsc -p . && node backend/_dist"
   functions = "netlify/functions"
-  publish = "backend/_dist"
+  publish = ""
   [build.environment]
   NODE_VERSION = "20.9.0" # Specify the exact Node.js version you want to use
 
