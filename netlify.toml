@@ -1,11 +1,11 @@
 # example netlify.toml
 [build]
-  ## command = "yarn build"
-  command = "yarn install && yarn --cwd frontend install && yarn --cwd frontend build && tsc -p . && node backend/_dist"
+  command = "yarn install && yarn build"
   functions = "netlify/functions"
   publish = ""
   [build.environment]
-  NODE_VERSION = "20.9.0" # Specify the exact Node.js version you want to use
+    NODE_VERSION = "20.9.0" # Specify the exact Node.js version you want to use
+    YARN_VERSION = "4.2.1"
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
   ## Not needed for static site generators.

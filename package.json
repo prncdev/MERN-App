@@ -6,9 +6,9 @@
     "start": "ts-node backend/index.ts",
     "server": "nodemon backend/index.ts",
     "client": "yarn --cwd frontend start",
-    "dev": "concurrently \"yarn start\" \"yarn client\"",
+    "dev": "concurrently \"yarn server\" \"yarn client\"",
     "test": "file path",
-    "build": "yarn install && yarn --cwd frontend install && yarn --cwd frontend build && tsc -p . && node backend/_dist"
+    "build": "yarn --cwd frontend build && tsc -p . && node backend/_dist"
   },
   "workspaces": [
     "frontend"
@@ -25,7 +25,7 @@
     "mongoose": "^8.3.2"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.16.0"
   },
   "devDependencies": {
     "@types/cors": "^2",
