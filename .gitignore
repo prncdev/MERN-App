@@ -2,5 +2,6 @@ node_modules
 .yarn
 dist
 .env
+yarn.lock
 # Local Netlify folder
 .netlify
