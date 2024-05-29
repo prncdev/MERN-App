@@ -2,6 +2,7 @@
   "name": "full-stack-app",
   "version": "1.0.0",
   "main": "index.js",
+  "private": false,
   "scripts": {
     "start": "ts-node backend/index.ts",
     "server": "nodemon backend/index.ts",
