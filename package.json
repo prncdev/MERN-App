@@ -8,8 +8,7 @@
     "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "test": "file path",
-    "build": "yarn --cwd frontend build && tsc -p .",
-    "prod": "node backend/dist/index.js",
+    "build": "yarn --cwd frontend build && tsc -p .&& node backend/dist",
     "update": "yarn install && yarn --cwd frontend install"
   },
   "private": true,
