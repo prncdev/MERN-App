@@ -16,7 +16,11 @@ const app: Application = express();
 
 connectDB(dbURL);
 
-app.use(cors());
+app.use(cors({
+  origin: ["https://bytebuddies.netlify.app"],
+  methods: ["GET", "POST"],
+  credentials: true
+}));
 app.use(JSONBody());
 app.use(urlencoded({ extended: false }));
 
