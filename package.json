@@ -2,17 +2,19 @@
   "name": "full-stack-app",
   "version": "1.0.0",
   "main": "index.js",
-  "private": false,
   "scripts": {
     "start": "ts-node backend/index.ts",
     "server": "nodemon backend/index.ts",
     "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "test": "file path",
-    "build": "yarn --cwd frontend build && tsc -p . && node backend/dist"
+    "build": "yarn --cwd frontend build && tsc -p .",
+    "prod": "node backend/dist/index.js",
+    "update": "yarn install && yarn --cwd frontend install"
   },
+  "private": true,
   "workspaces": [
-    "frontend"
+    "./frontend"
   ],
   "author": "Prince",
   "license": "MIT",
@@ -24,9 +26,6 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "mongoose": "^8.3.2"
-  },
-  "engines": {
-    "node": ">=18.16.0"
   },
   "devDependencies": {
     "@types/cors": "^2",
