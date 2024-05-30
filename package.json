@@ -8,8 +8,8 @@
     "client": "yarn --cwd frontend start",
     "dev": "concurrently \"yarn server\" \"yarn client\"",
     "test": "file path",
-    "build": "yarn --cwd frontend build && tsc -p .&& node backend/dist",
-    "update": "yarn install && yarn --cwd frontend install"
+    "build": "yarn --cwd frontend build && tsc -p .",
+    "update": "yarn --cwd frontend install && yarn install"
   },
   "private": true,
   "workspaces": [
