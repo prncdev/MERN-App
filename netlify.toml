@@ -2,14 +2,14 @@
 [build]
   based = "./"
   command = "yarn build"
-  publish = "backend/dist"
+  publish = "frontend/build"
 
 [functions]
   directory = "backend/dist/functions"
 
 [[redirects]]
   from = "/*"
-  to = "/"
+  to = "/index.html"
   status = 200
 
   ## Uncomment to use this redirect for Single Page Applications like create-react-app.
