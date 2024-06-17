@@ -5,12 +5,12 @@
   "scripts": {
     "start": "ts-node backend/index.ts",
     "server": "nodemon backend/index.ts",
-    "client": "yarn --cwd frontend start",
-    "dev": "concurrently \"yarn server\" \"yarn client\"",
+    "client": "pnpm start --prefix frontend",
+    "dev": "concurrently \"pnpm server\" \"pnpm client\"",
     "test": "file path",
-    "prod": "cross-env CI=false yarn --cwd frontend build && tsc -p . && node backend/dist",
-    "update": "yarn --cwd frontend install && yarn install",
-    "build": "yarn update && yarn prod"
+    "prod": "cross-env CI=false pnpm build --prefix frontend && tsc -p . && node backend/dist",
+    "update": "pnpm install --prefix frontend && pnpm install",
+    "build": "pnpm update && pnpm prod"
   },
   "private": true,
   "pnpm-workspace.yaml": [
