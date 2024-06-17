@@ -13,7 +13,7 @@
     "build": "yarn update && yarn prod"
   },
   "private": true,
-  "workspaces": [
+  "pnpm-workspace.yaml": [
     "./frontend"
   ],
   "author": "Prince",
